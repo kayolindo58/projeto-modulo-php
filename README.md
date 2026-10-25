@@ -1,131 +1,88 @@
-# 🧮 Calculadora em PHP (CLI)
+# 🐘 Projetos PHP — Curso Full Stack Coude
 
-Calculadora de terminal feita em **PHP puro**, desenvolvida como projeto prático do módulo de PHP. O usuário escolhe uma operação em um menu, digita os números e recebe o resultado direto no terminal.
+Repositório dedicado aos projetos desenvolvidos durante o módulo de **PHP do curso Full Stack da Coude**. Aqui estão reunidos exercícios práticos que exploram lógica de programação, funções, estruturas condicionais, arrays e operações matemáticas.
 
----
+## 📂 Projetos
 
-## 📋 Sobre o projeto
+### 🧮 1. Calculadora em PHP
 
-O programa roda inteiramente na linha de comando, sem frameworks e sem dependências externas. Ele foi criado para praticar:
+**Diretório:** `calculadora projeto main/`  
+**Arquivo principal:** `calculadora.php`
 
-- Funções com parâmetros tipados e opcionais (`?int`)
-- Estrutura condicional com `switch` e `if / elseif / else`
-- Entrada de dados pelo terminal com `readline()`
-- Conversão de tipos (*type casting*)
-- Validação básica de entradas (divisão por zero, raiz de número negativo etc.)
+Calculadora desenvolvida em PHP para executar operações matemáticas por meio de um menu interativo no terminal.
 
----
+**Operações disponíveis no código:**
+- ➕ Adição;
+- ➖ Subtração;
+- ✖️ Multiplicação;
+- ➗ Divisão;
+- 🔢 Potenciação;
+- √ Raiz quadrada;
+- 💯 Cálculo de porcentagem.
 
-## ⚙️ Operações disponíveis
+**Conceitos aplicados:**
+- Criação e utilização de funções;
+- Parâmetros tipados e valores opcionais;
+- Estrutura `switch`;
+- Estruturas condicionais `if` e `else`;
+- Operadores aritméticos;
+- Entrada de dados com `readline()`;
+- Utilização de funções matemáticas nativas do PHP.
 
-| Opção | Operação        | Entradas        | Observação                                       |
-|:-----:|-----------------|-----------------|--------------------------------------------------|
-| 1     | Soma            | 2 números       | `n1 + n2`                                        |
-| 2     | Subtração       | 2 números       | `n1 - n2`                                        |
-| 3     | Multiplicação   | 2 números       | Não executa se algum número for `0`              |
-| 4     | Divisão         | 2 números       | Não executa se algum número for `0`              |
-| 5     | Exponencial     | 2 números       | Não aceita números negativos                     |
-| 6     | Raiz quadrada   | 1 número        | Não aceita número negativo                       |
-| 7     | Porcentagem     | 1 número        | Divide o número por 100 e exibe com o símbolo `%` |
+### 📊 2. Sistema de Gestão de Notas
 
----
+**Diretório:** `sistema de notas/`
+
+Projeto voltado à organização de informações de alunos e à criação de uma estrutura para gerenciamento de notas escolares.
+
+O sistema está dividido em dois arquivos:
+
+**`cadastrarAlunoEscola.php`**
+
+Contém um array multidimensional com dados de alunos, incluindo nomes e idades. Essa estrutura serve como base para armazenar informações cadastrais.
+
+**`gestorDeNotas.php`**
+
+Apresenta a estrutura inicial de um sistema de gestão de notas, com menu direcionado a professores e opções para:
+
+- Consultar alunos;
+- Cadastrar notas;
+- Visualizar relatórios;
+- Sair do sistema.
+
+O código também define constantes para pesos das notas, limites de pontuação, média de aprovação, média de recuperação e idade mínima.
+
+**Conceitos aplicados:**
+- Arrays associativos e multidimensionais;
+- Inclusão de arquivos com `include`;
+- Constantes com `const` e `define()`;
+- Funções;
+- Organização de código em arquivos separados;
+- Estruturação de menus interativos.
+
+> **Status:** o sistema de gestão de notas está em desenvolvimento. O código atual contém a estrutura inicial do menu e as configurações, mas ainda precisa da implementação das funcionalidades de cadastro, cálculo das médias e geração de relatórios.
+
+## 🛠️ Tecnologias utilizadas
+
+- **PHP** — linguagem principal dos projetos.
+- **Terminal** — interface para entrada de dados e execução dos programas.
+- **Visual Studio Code** — editor de código recomendado.
 
 ## 🚀 Como executar
 
-### Pré-requisitos
+### 1. Instale o PHP
 
-- **PHP 7.1 ou superior** com a extensão **CLI**
-- Extensão **readline** habilitada (já vem ativa na maioria das instalações Linux e macOS)
+Baixe e instale o PHP pelo site oficial:
 
-Para conferir se o PHP está instalado:
+https://www.php.net/downloads.php
+
+Verifique se a instalação foi concluída:
 
 ```bash
 php -v
 ```
 
-### Passo a passo
+### 2. Clone o repositório
 
-1. Clone o repositório:
-
-   ```bash
-   git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-   ```
-
-2. Entre na pasta do projeto:
-
-   ```bash
-   cd SEU-REPOSITORIO
-   ```
-
-3. Execute o programa:
-
-   ```bash
-   php calculadora.php
-   ```
-
----
-
-## 💻 Exemplo de uso
-
-```text
-=======================================
-        calculadora de wagner
-=======================================
-1. somar
-2. subtrair
-3. multiplicação
-4. divisão
-5. exponencial
-6. raiz quadrada
-7. porcentagem
-escolha uma opção de 1 a 7:
-1
-Digite seu primeiro número:
-10
-Digite seu segundo número:
-5
-15
-```
-
----
-
-## 📁 Estrutura do projeto
-
-```text
-.
-├── calculadora.php   # Código principal da calculadora
-└── README.md         # Documentação do projeto
-```
-
-### Principais funções
-
-- **`calculo(int $opcao, ?int $n1, ?int $n2, ?int $n3)`**: recebe a opção escolhida e os números, faz a operação correspondente e exibe o resultado.
-- **`LimparTerminal()`**: limpa a tela do terminal usando sequências de escape ANSI.
-
----
-
-## 🛠️ Tecnologias
-
-- [PHP](https://www.php.net/)
-
----
-
-## 🔮 Próximos passos
-
-- [ ] Permitir números decimais (`float`) em vez de apenas inteiros
-- [ ] Repetir o menu até o usuário escolher sair
-- [ ] Usar `LimparTerminal()` entre os cálculos
-- [ ] Separar a lógica das operações em funções individuais
-- [ ] Adicionar testes automatizados
-
----
-
-## 👤 Autor
-
-Feito por **KAYO JULIAN** · [GitHub](https://github.com/SEU-USUARIO)
-
----
-
-## 📄 Licença
-
-Projeto desenvolvido para fins de estudo. Sinta-se à vontade para usar e adaptar.
+```bash
+git clone https://github.com/k
