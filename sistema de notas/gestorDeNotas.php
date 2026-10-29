@@ -1,7 +1,5 @@
 <?php
 
-// dependencias
-
 
 function limparTerminal()
 {
@@ -19,21 +17,22 @@ const MEDIA_RECUPERACAO = 5;
 const IDADE_MINIMA = 14;
 
 define("TITULO_SISTEMA", "Sistema de notas de alunos para professores - instituição de wagner -");
+
 // arrays
 
-$aluno = [
-    ['nome' => "wagner\n", 'idade' => 14 . "\n"],
-    ['nome' => "robson\n", 'idade' => 15 . "\n"],
-    ['nome' => "neto\n", 'idade' => 16 . "\n"],
-    ['nome' => "gabriel\n", 'idade' => 17 . "\n"],
-    ['nome' => "filipe\n", 'idade' => 23 . "\n"],
-
-];
+$aluno = [];
 
 function CadastrarAluno(&$aluno)
 {
+    global $frequencia;
+    global $nome;
+    global $idade;
+
+    $totalAulas = 100;
+
     $nome = trim(readline("digite o nome do aluno: "));
     $idade = filter_var(readline("digite sua idade: "), FILTER_VALIDATE_INT);
+    $aulas = filter_var(readline("quantas vezes esse aluno esteve presente na aula: "), FILTER_VALIDATE_INT);
 
     if ($nome === "") {
         echo "O nome não pode retornar vazio. Tente novamente. \n";
@@ -45,9 +44,16 @@ function CadastrarAluno(&$aluno)
         return;
     }
 
+    if ($aulas === false || $aulas < 0 || $aulas > $totalAulas){
+        echo "Quantidade de aula invalida, tente entre 0 e " . $totalAulas . "\n";
+    }
+
+    $frequencia = ($aulas / $totalAulas) * 100;
+
     $aluno[] = [
         'nome' => $nome,
-        'idade' => $idade
+        'idade' => $idade,
+        'frequencia' => $frequencia
     ];
 
     echo "Aluno cadastrado com sucesso! \n";
@@ -102,9 +108,8 @@ while (true) {
         case '1':
             echo "Turma de alunos: \n" . count($aluno) . " alunos cadastrados.\n";
             foreach ($aluno as $alunoItem) {
-                echo $alunoItem['nome'] . " - " . $alunoItem['idade'] . " anos\n";
+                echo $alunoItem['nome'] . " - " . $alunoItem['idade'] . " anos" . " - " . ($alunoItem['frequencia'] ?? "n/d") . "% de frequencia. \n";
             }
-
             break;
 
 
@@ -120,9 +125,9 @@ while (true) {
                 break;
             }
 
-            foreach ($aluno as $i => $aluno) {
-                $n1 = readline("nota do aluno {$aluno['nome']}: ");
-                $n2 = readline("nota do aluno {$aluno['nome']}: ");
+            foreach ($aluno as $i => $alunoAtual) {
+                $n1 = readline("nota do aluno {$alunoAtual['nome']}: ");
+                $n2 = readline("nota do aluno {$alunoAtual['nome']}: ");
 
                 if (!is_numeric($n1) || !is_numeric($n2)) {
                     echo "nota invalida! tente novamente. \n";
@@ -152,7 +157,6 @@ while (true) {
             }
 
             break;
-
         case '4':
 
             $aprovados = 0;
@@ -162,9 +166,12 @@ while (true) {
             $soma = 0;
             $contagem = 0;
 
+            $frequenciaMinima = 21;
+
             foreach ($aluno as $i => $alunoSemente) {
                 $nome = $alunoSemente['nome'];
                 $nota = $notas[$i] ?? null;
+                $frequencia = $alunoSemente['frequencia'] ?? null;
 
                 if ($nota === null) {
                     echo "$nome - sem nota\n";
@@ -174,7 +181,11 @@ while (true) {
                 $media = $nota["media"];
                 $situacao = classificar($media);
 
-                echo "$nome - N1: {$nota['nota1']} | N2: {$nota['nota2']} | Media: $media | $situacao\n";
+                if ($frequencia !== null && $frequencia < $frequenciaMinima) {
+                    $situacao = "reprovado por falta";
+                }
+
+                echo "$nome - N1: {$nota['nota1']} | N2: {$nota['nota2']} | Media: $media | Frequencia: " . ($frequencia ?? "n/d") . "% | $situacao\n";
 
                 if ($situacao === "aprovado") {
                     $aprovados++;
